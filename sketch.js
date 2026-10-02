@@ -30,6 +30,8 @@ function running() { return !r.WindowShouldClose(); }
 function setup() {
 	init();
 
+	r.SetTraceLogLevel(r.LOG_NONE);
+
 	if (window.width <= window.maxWidth && window.height <= window.maxHeight) {
 		r.InitWindow(window.width, window.height, windowTitle);
 		r.SetTargetFPS(FPS);
