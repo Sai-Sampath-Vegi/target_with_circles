@@ -4,26 +4,34 @@ function getWindowDimenstions(circlesCount, circlesThickness) {
 	return 2 * circlesCount * circlesThickness;
 }
 
-const circlesCount = 15;
-const circlesThickness = 30;
+const circles = {
+	count: 15,
+	thickness: 30,
+};
 
-const windowWidth = getWindowDimenstions(circlesCount, circlesThickness);
-const windowHeight = getWindowDimenstions(circlesCount, circlesThickness);
-const windowTitle = "Target with Circles";
+const window = {};
+
+function init() {
+	window.width = getWindowDimenstions(circles.count, circles.thickness);
+	window.height = getWindowDimenstions(circles.count, circles.thickness);
+	windowTitle = "Target with Circles";
+
+	window.maxWidth = 1000;
+	window.maxHeight = 1000;
+
+	circles.x = window.width / 2;
+	circles.y = window.height / 2;
+}
 
 const FPS = 60;
-
-const maxWindowWidth = 1000;
-const maxWindowHeight = 1000;
-
-const centerX = windowWidth / 2;
-const centerY = windowHeight / 2;
 
 function running() { return !r.WindowShouldClose(); }
 
 function setup() {
-	if (windowWidth <= maxWindowWidth && windowHeight <= maxWindowHeight) {
-		r.InitWindow(windowWidth, windowHeight, windowTitle);
+	init();
+
+	if (window.width <= window.maxWidth && window.height <= window.maxHeight) {
+		r.InitWindow(window.width, window.height, windowTitle);
 		r.SetTargetFPS(FPS);
 	} else { // Window Size is more than allowed size
 		teardown();
@@ -33,7 +41,7 @@ function setup() {
 function update() { }
 
 function draw() {
-	let n = circlesCount;
+	let n = circles.count;
 
 	r.BeginDrawing();
 
@@ -41,7 +49,7 @@ function draw() {
 
 	while (n > 0) {
 		const color = n % 2 === 0 ? r.WHITE : r.RED;
-		r.DrawCircle(centerX, centerY, n * circlesThickness, color);
+		r.DrawCircle(circles.x, circles.y, n * circles.thickness, color);
 		n--;
 	}
 
